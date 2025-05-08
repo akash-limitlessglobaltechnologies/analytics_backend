@@ -35,9 +35,9 @@ exports.submitFeedback = async (req, res) => {
       // Format the stars based on rating
       const stars = rating ? '⭐'.repeat(Math.min(rating, 5)) : 'Not provided';
       
-      // Create the slack message
+      // Create a simplified slack message with just From and Message
       const slackMessage = {
-        text: `*New Feedback Received*`,
+        text: `New Feedback Received`,
         blocks: [
           {
             type: "section",
@@ -48,24 +48,10 @@ exports.submitFeedback = async (req, res) => {
           },
           {
             type: "section",
-            fields: [
-              {
-                type: "mrkdwn",
-                text: `*Instance:*\n${instance.name}`
-              },
-              {
-                type: "mrkdwn",
-                text: `*Rating:*\n${stars}`
-              },
-              {
-                type: "mrkdwn",
-                text: `*From:*\n${name || 'Anonymous'}${userEmail ? ` (${userEmail})` : ''}`
-              },
-              {
-                type: "mrkdwn",
-                text: `*Date:*\n${new Date().toLocaleString()}`
-              }
-            ]
+            text: {
+              type: "mrkdwn",
+              text: `*From:*\n${name || 'Anonymous'}${userEmail ? ` (${userEmail})` : ''}`
+            }
           }
         ]
       };
