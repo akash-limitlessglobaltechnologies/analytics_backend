@@ -2,8 +2,8 @@ const Feedback = require('../models/feedback');
 const FeedbackInstance = require('../models/feedbackInstance');
 const axios = require('axios'); // Add axios for HTTP requests
 
-// Slack webhook URL
-const SLACK_WEBHOOK_URL = 'https://hooks.slack.com/services/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';
+// Slack webhook URL from environment variable
+const SLACK_WEBHOOK_URL = process.env.SLACK_WEBHOOK_URL;
 
 // Submit feedback for a specific instance
 exports.submitFeedback = async (req, res) => {
